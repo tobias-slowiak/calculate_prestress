@@ -8,7 +8,7 @@ The calculated prestress will not be perfect but better than the analytical esti
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/yourusername/your-repo.git
+    git clone https://github.com/tobias-slowiak/calculate_prestress.git
     cd your-repo
     ```
 
