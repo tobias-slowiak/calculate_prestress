@@ -39,7 +39,7 @@ The parameters of the membrane are hard-coded in the script, look at the code in
 
 The first estimate of the prestress comes from a quadratic fit of simulation results
 
-![Prestress estimation fit](figures/prestress_estimator.png)
+![Prestress estimation fit](prestress_estimator.png)
 
 using the following parameters:
 
