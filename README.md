@@ -6,11 +6,12 @@ The calculated prestress will not be perfect but better than the analytical esti
 
 ## Installation
 
-1. Clone this repository:
+1. Clone this repository (skip if you received the zipped folder):
     ```bash
     git clone https://github.com/tobias-slowiak/calculate_prestress.git
     cd calculate_prestress
     ```
+    
 
 2. (Optional) Create a virtual environment:
     ```bash
