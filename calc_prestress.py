@@ -22,10 +22,12 @@ p["mpercentage_perf"] = 0.62 #how much mass density is left on the perforated ar
 freq_dict = {
     "(1,1)": 120e3,
     "(2,1)": 160e3,
-    "(1,2)": 180e3
+    "(1,2)": 180e3,
+    "(3,1)": 220e3
 }
 measured_21 = True # Set true if you have measured the (2,1) mode frequency
-measured_12 = True # Set true if you have measured the (1,2) mode frequency
+measured_12 = False # Set true if you have measured the (1,2) mode frequency
+measured_31 = True # Set true if you have measured the (3,1) mode frequency
 
 
 ### Not user relevant: change nothing:
@@ -35,7 +37,8 @@ print("Estimated prestress: ", p["sigsin"])
 sigsins = { #fitted prestresses, do not change.
     "(1,1)": 0,
     "(2,1)": 0,
-    "(1,2)": 0
+    "(1,2)": 0,
+    "(3,1)": 0
 }
 mesh = generate_mesh(p)
 def fit_freq(p, mode, mesh, sigsins):
@@ -47,18 +50,28 @@ def fit_freq(p, mode, mesh, sigsins):
 result = fit_freq(p, "(1,1)", mesh, sigsins)
 print("Prestress when fitting f(1,1): " + str(p["sigsin"]/1e6) + " MPa")
 print("from that the expected second mode freqs are: f(2,1)=" + str(result["(2,1)"][0]) + " kHz and f(1,2)=" + str(result["(1,2)"][0]) + " kHz")
+print("and f(3,1)=" + str(result["(3,1)"][0]) + " kHz")
 
 #fitting the (2,1) mode
 if measured_21:
     result = fit_freq(p, "(2,1)", mesh, sigsins)
     print("Prestress when fitting f(2,1): " + str(p["sigsin"]/1e6) + " MPa")
-    print("from that the expected other mode freqs are: f(1,1)=" + str(result["(1,1)"][0]) + " kHz and f(1,2)=" + str(result["(1,2)"][0]) + " kHz")
+    print("from that the expected other mode freqs are: f(1,1)=" + str(result["(1,1)"][0]) + " kHz and f(2,1)=" + str(result["(2,1)"][0]) + " kHz")
+    print("and f(3,1)=" + str(result["(3,1)"][0]) + " kHz")
 
 #fitting the (1,2) mode
 if measured_12:
     result = fit_freq(p, "(1,2)", mesh, sigsins)
     print("Prestress when fitting f(1,2): " + str(p["sigsin"]/1e6) + " MPa")
     print("from that the expected other mode freqs are: f(1,1)=" + str(result["(1,1)"][0]) + " kHz and f(2,1)=" + str(result["(2,1)"][0]) + " kHz")
+    print("and f(3,1)=" + str(result["(3,1)"][0]) + " kHz")
 
+#fitting the (3,1) mode
+if measured_31:
+    result = fit_freq(p, "(3,1)", mesh, sigsins)
+    print("Prestress when fitting f(3,1): " + str(p["sigsin"]/1e6) + " MPa")
+    print("from that the expected other mode freqs are: f(1,1)=" + str(result["(1,1)"][0]) + " kHz and f(2,1)=" + str(result["(2,1)"][0]) + " kHz")
+
+print("\n")
 avg_sigsin = (sigsins["(1,1)"] + sigsins["(2,1)"] + sigsins["(1,2)"]) / (1 + measured_21 + measured_12)
-print("Averaging gives an estimate of sigsin=" + str(avg_sigsin/1e6) + " MPa")
+print("Averaging gives an estimate of prestress(SiN) = " + str(avg_sigsin/1e6) + " MPa")
